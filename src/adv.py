@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -38,14 +40,68 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+ready = True
+player = Player("Tatyana", room["outside"])
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
+while ready == True:
+    # Write a loop that:
+    #
+    # * Prints the current room name
+    print(player.current_room)
+    # * Prints the current description (the textwrap module might be useful here).
+    print(player.current_room.description)
+    if len(player.current_room.items) > 0:
+        for item in player.current_room.items:
+            print(f'The {item} is in the room')
+    if len(player.items) > 0:
+
+        for item in player.items:
+            print(f'Player has the {item.name}')
 # * Waits for user input and decides what to do.
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+    print("Type q to quit")
+    print("Type get to pick up an item or drop to drop item")
+    
+    choice = input("please enter a direction: n, s, w, e ")
+
+    if (choice == 'q'):
+        break
+    elif (choice == 'n'):
+         if player.current_room.n_to is not None:
+                player.current_room = player.current_room.n_to
+        else:
+            print("That's a dead-end, be careful or you might end up dead.")
+    elif (choice == 'e'):
+        if player.current_room.e_to is not None:
+            player.current_room = player.current_room.e_to
+    elif (choice == 's'):
+        if player.current_room.s_to is not None:
+            player1.current_room = player.current_room.s_to
+    elif (choice == 'w'):
+        if player.current_room.w_to is not None:
+            player.current_room = player.current_room.w_to
+    elif (choice == 'get'):
+        item_choice = input("please enter which item to pickup ")
+        for item in player.current_room.items:
+            if (item.name == item_choice):
+                player.get_item(item_choice)
+                player.current_room.items.remove(item)
+            else:
+                print(f'{item_choice} is not a valid selection')
+    elif (choice == 'drop'):
+        drop_choice = input("please enter which item to drop ")
+        for item in player.items:
+            if (item.name == drop_choice):
+                player.items.remove(item)
+                player.current_room.items.append(item)
+            else:
+                print(f'{item_choice} is not held by the player')
+    else:
+        print("Please enter a valid command: n, e, s, w, or q")
+
+
+
