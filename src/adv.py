@@ -1,15 +1,18 @@
 from room import Room
 from player import Player
-from item import Item
+from item import Sword, Shield
+
+sword = Sword("Sword", "power sword", 8)
+shield = Shield("Shield", "defense shield", 10)
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [shield]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [sword]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -73,14 +76,14 @@ while ready == True:
     elif (choice == 'n'):
          if player.current_room.n_to is not None:
                 player.current_room = player.current_room.n_to
-        else:
+         else:
             print("That's a dead-end, be careful or you might end up dead.")
     elif (choice == 'e'):
         if player.current_room.e_to is not None:
             player.current_room = player.current_room.e_to
     elif (choice == 's'):
         if player.current_room.s_to is not None:
-            player1.current_room = player.current_room.s_to
+            player.current_room = player.current_room.s_to
     elif (choice == 'w'):
         if player.current_room.w_to is not None:
             player.current_room = player.current_room.w_to

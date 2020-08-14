@@ -17,3 +17,5 @@ class Player:
     def drop_item(self, item):
         item = Item(item, self)
         self.items.remove(item)
+
+  
